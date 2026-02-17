@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #050a0e;
+        }
+
+        /* ── 1. BASE DARK BACKGROUND ── */
+        .bg-base {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #050a0e 0%, #0a1520 50%, #050a0e 100%);
+        }
+
+        /* ── 2. GRID ── */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 30%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 30%, transparent 100%);
+        }
+
+        /* ── 3. GLOW ── */
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0, 210, 255, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(255, 61, 113, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 80% 20%, rgba(127, 255, 71, 0.04) 0%, transparent 60%);
+            animation: glow-pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.7; }
+            50%       { opacity: 1;   }
+        }
+
+        /* ── 4. NOISE TEXTURE ── */
+        .bg-noise {
+            position: fixed;
+            inset: 0;
+            opacity: 0.35;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 300px 300px;
+        }
+
+        /* ── 5. SCANLINES ── */
+        .bg-scanlines {
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+        }
+
+        /* ── 6. ANIMATED GRID PARTICLES ── */
+        canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-base"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <canvas id="particles"></canvas>
+    <div class="bg-noise"></div>
+    <div class="bg-scanlines"></div>
+
+    <script>
+        // ── Floating data particles ──
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const PARTICLE_COUNT = 55;
+        const particles = [];
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+                x:     Math.random() * window.innerWidth,
+                y:     Math.random() * window.innerHeight,
+                vx:    (Math.random() - 0.5) * 0.35,
+                vy:    (Math.random() - 0.5) * 0.35,
+                size:  Math.random() * 1.5 + 0.5,
+                alpha: Math.random() * 0.5 + 0.1,
+                color: Math.random() < 0.7
+                    ? `rgba(0, 210, 255,`
+                    : Math.random() < 0.5
+                        ? `rgba(255, 61, 113,`
+                        : `rgba(127, 255, 71,`
+            });
+        }
+
+        // Connection max distance
+        const MAX_DIST = 130;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw connections
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < MAX_DIST) {
+                        const opacity = (1 - dist / MAX_DIST) * 0.15;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 210, 255, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw particles
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `${p.color}${p.alpha})`;
+                ctx.fill();
+
+                // Soft glow
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+                ctx.fillStyle = `${p.color}${p.alpha * 0.15})`;
+                ctx.fill();
+
+                // Move
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Wrap around edges
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width)  p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+            });
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+    </script>
+</body>
+</html>
