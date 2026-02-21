@@ -25,38 +25,34 @@
       --body:    'DM Sans', sans-serif;
     }
 
-
- body { cursor: none !important; }
+    body { cursor: none !important; }
   
-  /* Custom cursor dot */
-  #cursor {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: #00c8ff;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: screen;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background 0.2s;
-  }
-  
-  /* Custom cursor ring */
-  #cursor-ring {
-    position: fixed;
-    width: 32px;
-    height: 32px;
-    border: 1px solid rgba(0, 200, 255, 0.35);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s;
-  }
-
-
-
+    /* Custom cursor dot */
+    #cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #00c8ff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+    
+    /* Custom cursor ring */
+    #cursor-ring {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(0, 200, 255, 0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
 
     html, body {
       background: var(--bg);
@@ -264,84 +260,6 @@
       line-height: 1.5;
     }
 
-    /* ══ DATA FLOW ══ */
-    .df-step {
-      display: flex;
-      gap: 20px;
-      padding: 22px 0;
-      border-bottom: 1px solid var(--border);
-      transition: background .25s, padding-left .25s;
-      opacity: 0;
-      animation: fadeUp .6s ease forwards;
-      cursor: default;
-    }
-    .df-step:first-child { border-top: 1px solid var(--border); }
-    .df-step:hover { background: rgba(0,200,255,.025); padding-left: 8px; }
-
-    .df-num {
-      font-family: var(--mono);
-      font-size: .65rem;
-      font-weight: 700;
-      color: rgba(0,200,255,.3);
-      flex-shrink: 0;
-      width: 28px;
-      padding-top: 3px;
-      transition: color .25s;
-    }
-    .df-step:hover .df-num { color: var(--cyan); }
-
-    .df-badge {
-      flex-shrink: 0;
-      width: 40px; height: 40px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,200,255,.08);
-      transition: background .25s, transform .25s;
-    }
-    .df-step:hover .df-badge {
-      background: rgba(0,200,255,.14);
-      transform: scale(1.06);
-    }
-    .df-badge svg {
-      width: 18px; height: 18px;
-      stroke: var(--cyan);
-      stroke-width: 1.7;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .df-body { flex: 1; }
-    .df-body h4 {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--head);
-      margin-bottom: 7px;
-      transition: color .25s;
-    }
-    .df-step:hover .df-body h4 { color: #fff; }
-    .df-body p {
-      font-size: .84rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    .df-tag {
-      font-family: var(--mono);
-      font-size: .52rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      border: 1px solid rgba(0,200,255,.22);
-      background: rgba(0,200,255,.05);
-      border-radius: 3px;
-      padding: 3px 8px;
-      margin-top: 10px;
-      display: inline-block;
-    }
-
     /* ══ CONSUMER BEHAVIOUR CARDS ══ */
     .cb-grid {
       display: grid;
@@ -473,187 +391,6 @@
       line-height: 1.65;
     }
 
-    /* ══ TIMELINE ══ */
-    .tl-item {
-      display: flex;
-      gap: 22px;
-      padding-bottom: 36px;
-      opacity: 0;
-      animation: fadeUp .7s ease forwards;
-    }
-    .tl-item:last-child { padding-bottom: 0; }
-    .tl-left {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-      width: 40px;
-    }
-    .tl-dot {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      border: 2px solid var(--cyan);
-      background: var(--bg);
-      flex-shrink: 0;
-      box-shadow: 0 0 10px currentColor;
-      margin-top: 4px;
-      transition: transform .3s;
-    }
-    .tl-item:hover .tl-dot { transform: scale(1.2); }
-    .tl-item:nth-child(1) .tl-dot { border-color: var(--cyan); color: var(--cyan); }
-    .tl-item:nth-child(2) .tl-dot { border-color: var(--pink); color: var(--pink); }
-    .tl-item:nth-child(3) .tl-dot { border-color: var(--green); color: var(--green); }
-    .tl-item:nth-child(4) .tl-dot { border-color: var(--gold); color: var(--gold); }
-    .tl-line {
-      flex: 1;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--border), transparent);
-      margin-top: 8px;
-    }
-    .tl-item:last-child .tl-line { display: none; }
-    .tl-content { flex: 1; }
-    .tl-year {
-      font-family: var(--mono);
-      font-size: .58rem;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 8px;
-    }
-    .tl-item:nth-child(2) .tl-year { color: var(--pink); }
-    .tl-item:nth-child(3) .tl-year { color: var(--green); }
-    .tl-item:nth-child(4) .tl-year { color: var(--gold); }
-    .tl-content h4 {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.02rem;
-      color: var(--head);
-      margin-bottom: 8px;
-      transition: color .3s;
-    }
-    .tl-item:hover .tl-content h4 { color: #fff; }
-    .tl-content p {
-      font-size: .85rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ══ LAW BLOCKS ══ */
-    .law-block {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      opacity: 0;
-      animation: fadeUp .6s ease forwards;
-      transition: border-color .3s, transform .3s, box-shadow .3s;
-      cursor: default;
-    }
-    .law-block:hover {
-      border-color: rgba(0,200,255,.25);
-      transform: translateX(4px);
-      box-shadow: 0 4px 20px rgba(0,0,0,.3);
-    }
-    .law-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 22px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(0,200,255,.03);
-      transition: background .3s;
-    }
-    .law-block:hover .law-header { background: rgba(0,200,255,.06); }
-    .law-num {
-      font-family: var(--mono);
-      font-size: .56rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      border: 1px solid rgba(0,200,255,.25);
-      background: rgba(0,200,255,.06);
-      border-radius: 4px;
-      padding: 4px 9px;
-      flex-shrink: 0;
-      transition: background .3s, border-color .3s;
-    }
-    .law-block:hover .law-num {
-      background: rgba(0,200,255,.12);
-      border-color: rgba(0,200,255,.4);
-    }
-    .law-header h4 {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: .98rem;
-      color: var(--head);
-      transition: color .3s;
-    }
-    .law-block:hover .law-header h4 { color: #fff; }
-    .law-body {
-      padding: 18px 22px;
-    }
-    .law-body p {
-      font-size: .85rem;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-    .law-body p strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    /* ══ CALLOUT ══ */
-    .callout {
-      border: 1px solid rgba(255,209,102,.2);
-      background: rgba(255,209,102,.04);
-      border-radius: 8px;
-      padding: 20px 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      opacity: 0;
-      animation: fadeUp .6s ease forwards;
-      transition: background .3s, border-color .3s, transform .3s;
-      cursor: default;
-    }
-    .callout:hover {
-      background: rgba(255,209,102,.08);
-      border-color: rgba(255,209,102,.35);
-      transform: translateY(-2px);
-    }
-    .callout-icon {
-      width: 32px; height: 32px;
-      flex-shrink: 0;
-      border-radius: 6px;
-      background: rgba(255,209,102,.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .3s, transform .3s;
-    }
-    .callout:hover .callout-icon {
-      background: rgba(255,209,102,.18);
-      transform: scale(1.08);
-    }
-    .callout-icon svg {
-      width: 16px; height: 16px;
-      stroke: var(--gold);
-      stroke-width: 1.8;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .callout p {
-      font-size: .88rem;
-      color: var(--text);
-      line-height: 1.75;
-    }
-    .callout p strong {
-      color: var(--gold);
-      font-weight: 500;
-    }
-
     /* ══ KEYFRAMES ══ */
     @keyframes fadeUp {
       from { opacity:0; transform:translateY(12px); }
@@ -670,7 +407,6 @@
 </head>
 <body>
 
-
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
@@ -680,7 +416,6 @@
     const cursor = document.getElementById('cursor');
     const cursorRing = document.getElementById('cursor-ring');
     
-    // If elements don't exist, create them
     if (!cursor || !cursorRing) {
       const c = document.createElement('div');
       c.id = 'cursor';
@@ -697,35 +432,26 @@
     let mouseX = 0, mouseY = 0;
     let ringX = 0, ringY = 0;
     
-    // Track mouse position
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      
-      // Update cursor dot immediately
       cur.style.left = mouseX + 'px';
       cur.style.top = mouseY + 'px';
     });
     
-    // Animate ring with smooth follow
     function animateRing() {
-      // Smooth easing for ring
       ringX += (mouseX - ringX) * 0.11;
       ringY += (mouseY - ringY) * 0.11;
-      
       ring.style.left = ringX + 'px';
       ring.style.top = ringY + 'px';
-      
       requestAnimationFrame(animateRing);
     }
     animateRing();
     
-    // Hover effect on interactive elements
-    const interactiveElements = 'button, a, .clickable, [data-goto], .mod-row, .home-card, .stat-row, .df-step, .hi-card, .tl-item, .law-block, .cb-card';
+    const interactiveElements = 'button, a, .clickable, [data-goto], .stat-row, .hi-card, .cb-card';
     
     document.addEventListener('mouseover', (e) => {
       if (e.target.matches(interactiveElements) || e.target.closest(interactiveElements)) {
-        // Expand on hover
         cur.style.width = '18px';
         cur.style.height = '18px';
         cur.style.background = 'rgba(0, 200, 255, 0.3)';
@@ -736,7 +462,6 @@
     
     document.addEventListener('mouseout', (e) => {
       if (e.target.matches(interactiveElements) || e.target.closest(interactiveElements)) {
-        // Return to normal
         cur.style.width = '10px';
         cur.style.height = '10px';
         cur.style.background = '#00c8ff';
@@ -746,7 +471,6 @@
     });
   })();
 </script>
-
 
 <div class="container">
 
@@ -824,10 +548,8 @@
 
   <div class="spacer-lg"></div>
 
- 
-
   <!-- CONSUMER BEHAVIOUR -->
-  <p class="section-label">02 // Consumer behaviour & user interaction</p>
+  <p class="section-label">03 // Consumer behaviour & user interaction</p>
   <p class="body-text">
     One of the most important things about enterprise data collection is its influence on <strong>Consumer behaviour.</strong> 
     By using content that triggers emotional responses such as outrage, desire, FOMO, they maximise their on platform advertising exposure.
@@ -861,7 +583,7 @@
   <div class="spacer-md"></div>
 
   <!-- TECHNIQUE CARDS -->
-  <p class="section-label">03 // Manipulation techniques</p>
+  <p class="section-label">04 // Manipulation techniques</p>
 
   <div class="two-col">
     
@@ -911,119 +633,6 @@
       <p>Personalisation algorithms narrow the information you see, limiting exposure to alternative perspectives and reinforcing existing beliefs.</p>
     </div>
 
-  </div>
-
-  <div class="spacer-lg"></div>
-
-  <!-- IMPACT TIMELINE -->
-  <p class="section-label">04 // Impact on young Australians</p>
-
-  <div class="tl-item">
-    <div class="tl-left">
-      <div class="tl-dot"></div>
-      <div class="tl-line"></div>
-    </div>
-    <div class="tl-content">
-      <p class="tl-year">Targeted Advertising</p>
-      <h4>You are shown what keeps you engaged, not what is good for you</h4>
-      <p>The alogithms are made to optimise engagement, without considering your wellbeing. For example, a teenager searching for a diet content can be progressively
-          shown more extreme material because it generates longer sessions and also more ad impressions, which increases platform revenue.
-      </p>
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-left">
-      <div class="tl-dot"></div>
-      <div class="tl-line"></div>
-    </div>
-    <div class="tl-content">
-      <p class="tl-year">Long-Term Profiling</p>
-      <h4>Data collected now follows you into adulthood</h4>
-      <p>Profiles that are built during your teenage years are kept indefinetly, so behavioural data that is collected at 14 can influence things like loan rate,
-          insurance premiums, and job opportunities you recieve at 24. There is no such a thing as a expiry data on a data profile.</p>
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-left">
-      <div class="tl-dot"></div>
-      <div class="tl-line"></div>
-    </div>
-    <div class="tl-content">
-      <p class="tl-year">Mental Health</p>
-      <h4>Engagement-optimised feeds correlate with poorer outcomes</h4>
-      <p>The Australian Institute of family studies (2022) found a correlation between algorithimc social media use and increased rate of anxiety and poort self image
-          amongst 13-17 year olds.
-      </p>
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-left">
-      <div class="tl-dot"></div>
-      <div class="tl-line"></div>
-    </div>
-    <div class="tl-content">
-      <p class="tl-year">Informed Consent</p>
-      <h4>Most Australians don't know what they've agreed to</h4>
-      <p>Fewer than 9% of Australians report that they reead the Terms of Service before accepting. The average ToS for a major platform takes 30 mins to read
-          and is written at university level. In practise, consent is not meaningful.
-      </p>
-    </div>
-  </div>
-
-  <div class="spacer-lg"></div>
-
-  <!-- AUSTRALIAN LAW -->
-  <p class="section-label">05 // Australian law & privacy rights</p>
-  <p class="body-text">
-    Australia has legal frameworks designed to protect your data, but they contain significant gaps when applied to the scale and sophistication of modern enterprise data collection.
-  </p>
-
-  <div class="spacer-sm"></div>
-
-  <div class="law-block">
-    <div class="law-header">
-      <span class="law-num">Cth 1988</span>
-      <h4>Privacy Act 1988</h4>
-    </div>
-    <div class="law-body">
-      <p>
-            Australia's primary federal law establishes the <strong>Australian privacy Principles (AAPs)</strong>, which governs how organisations collect, 
-           use, store, and disclose personal information. However, many platform argue processing falls under "exemptions" for "directly related business purposes,"
-           and organisations with under $3m anual revenue and entirely exempt.
-      </p>
-    </div>
-  </div>
-
-  <div class="law-block">
-    <div class="law-header">
-      <span class="law-num">Cth 2021</span>
-      <h4>Online Safety Act 2021</h4>
-    </div>
-    <div class="law-body">
-      <p>
-            This gives  the eSaftey power to require platforms to remove any harmful content. In 2004, the Government passed the <strong>Childrens online privacy code</strong>
-          , introducing stricter protections for users under 16, including the prohibition on targeted advertising to minors and stronger consent requirements.
-      </p>
-    </div>
-  </div>
-
-  <div class="spacer-sm"></div>
-
-  <div class="callout">
-    <div class="callout-icon">
-      <svg viewBox="0 0 24 24">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-        <line x1="12" y1="9" x2="12" y2="13"/>
-        <line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
-    </div>
-    <p>
-      <strong>The gap:</strong>  Australian law has a major flaw: It doesn't require platforms to inform users in plain language about what data is collected, 
-      nor give individuals a clear right to opt out of profiling. 
-    </p>
   </div>
 
 </div>
